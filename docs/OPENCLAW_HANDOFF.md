@@ -1,6 +1,22 @@
 # OpenClaw / sonraki geliştirici için el kitabı
 
-Bu dosya **neo_cosmos (Galaktik Sınır)** projesinde yapılan hata giderme ve yapılandırma düzeltmelerini, **asset eşlemesini** ve **bilinen tuzakları** özetler. Amaç: temiz clone sonrası **build kırmadan** devam etmek.
+Bu dosya **Neo Cosmos** (`neo_cosmos`) projesinde yapılan hata giderme ve yapılandırma düzeltmelerini, **resmi görsel üretim spesifikasyonunu**, **sekme arka planı dosyalarını** ve **bilinen tuzakları** özetler. Amaç: temiz clone sonrası **build kırmadan** devam etmek.
+
+---
+
+## OpenClaw ile eşzamanlı çalışma (ekip ↔ ajan)
+
+1. **Teslim bildirimi:** OpenClaw bir sprinti bitirdiğinde bu repoda **mutlaka** şunları güncellesin veya yeni bir `docs/OPENCLAW_STATUS.md` (veya bu dosyanın sonuna tarihli bölüm) eklesin:
+   - Ne yaptı (madde madde)
+   - Ne kaldı / bilinen sorunlar
+   - Sonraki önerilen adımlar
+   - `flutter analyze` / `flutter test` çalıştırdı mı (evet/hayır)
+
+2. **Ekip ritmi:** İnsan geliştiriciler projeye **birkaç günde bir** bakacak; önce **OpenClaw’ın bıraktığı notları** okuyacak.
+
+3. **İnsan push’u sonrası:** Ekip `main`’e yeni commit attığında OpenClaw **önce `git pull` / güncel `main`** ile devam etmeli; çakışma varsa çözüm önerisi veya birleştirme notu yazmalı. Eski dal üzerinden körü körüne devam etmemeli.
+
+4. **Build kırılmaması:** Yeni asset → `pubspec.yaml` listesi; yeni native bağımlılık → `pod install` notu; model değişimi → `build_runner` komutu handoff’ta belirtilsin.
 
 ---
 
@@ -17,8 +33,8 @@ Bu dosya **neo_cosmos (Galaktik Sınır)** projesinde yapılan hata giderme ve y
 
 - **`flutter_lints`** eklendi (`analysis_options.yaml` include çözülsün diye).
 - **`json_annotation: ^4.9.0`** (json_serializable uyarısı).
-- **Assets**: Alt klasörler ayrı listelenir; Flutter’da `assets/images/` yalnızca **doğrudan** o klasördeki dosyaları alır, alt klasörleri otomatik eklemez.
-- Gemini görselleri ve UI dilimleri için `assets/images/ui/` ve kökteki `1.1.png` … `3.png` dosyaları tek tek manifeste eklendi.
+- **Assets**: Alt klasörler ayrı listelenir; Flutter’da bir klasör yolu yalnızca **o klasörün doğrudan çocuklarını** paketler; alt klasörler için ayrı satır gerekir.
+- Tam ekran görseller (`1.1.png` … `3.png`) ve `assets/images/ui/` manifeste tek tek eklendi.
 
 ### iOS (CocoaPods / Xcode)
 
@@ -31,48 +47,72 @@ Bu dosya **neo_cosmos (Galaktik Sınır)** projesinde yapılan hata giderme ve y
 ### `.gitignore` (bu repoya özel dikkat)
 
 - `lib/**/*.g.dart` ve `lib/**/*.freezed.dart` **artık ignore edilmiyor** (clone sonrası derlenebilirlik).
-- `firebase_options.dart` ve `GoogleService-Info.plist` **commitlenebilir** (placeholder). Gerçek gizli anahtarları asla public repoya koyma; prod için environment / CI secret kullan.
+- `firebase_options.dart` ve `GoogleService-Info.plist` **commitlenebilir** (placeholder). Gerçek gizli anahtarları public repoya koyma; prod için environment / CI secret kullan.
 
 ---
 
-## 2. Gemini görselleri — dosya adları ve kodda kullanım
+## 2. Görsel üretim — Nano Banana 2 (resmi prompt listesi)
 
-Dosyalar **`assets/images/`** altında (kullanıcı sıralamasına göre gruplandı).
+Aşağıdaki yollar ve promptlar **tasarım kaynağıdır**; dosya adları rastgele değil, bu spesifikasyona göre kullanılmalıdır. Kodda `AssetPaths` bu yolları referans alır.
 
-| Dosya | `AssetPaths` sabiti | Önerilen kullanım (şu anki kod) |
-|--------|---------------------|----------------------------------|
-| `1.1.png` | `heroHubPrimary` | **Üs** sekmesi tam ekran arka plan (`BaseScreen` tab 0). |
-| `1.2.png` | `heroHubVariantA` | İsteğe bağlı: üs içi ikinci panel, carousel veya header şeridi (henüz bağlanmadı — OpenClaw ekleyebilir). |
-| `1.3.png` | `heroHubVariantB` | İsteğe bağlı: bina grid üstü banner / modül arka planı. |
-| `2.1.png` | `heroInventory` | **Envanter** sekmesi arka plan + önizleme kartında görsel. |
-| `2.2.png` | `heroExploration` | **Keşif** sekmesi. |
-| `2.3.png` | `heroCombat` | **Savaş** sekmesi. |
-| `3.png` | `heroMeta` | **Ayarlar** (veya global “meta” ekran: splash, kredi, hakkında). |
+### 2.1 Kaynak ikonları (512×512, şeffaf arka plan)
 
-### `assets/images/ui/`
+| Dosya | Prompt |
+|--------|--------|
+| `assets/images/resources/titanium.png` | Futuristic titanium ore icon, metallic blue and silver, glowing edges, game asset style, 512x512, transparent background |
+| `assets/images/resources/quantum_fuel.png` | Quantum fuel canister icon, purple and green energy glow, sci-fi style, transparent background, 512x512 |
+| `assets/images/resources/credit.png` | Premium currency credit icon, golden coin with circuit pattern, holographic effect, 512x512, transparent background |
 
-| Dosya | Sabit | Önerilen kullanım |
-|--------|--------|-------------------|
-| `button_normal.png` | `uiButtonNormal` | Özel düğme `DecorationImage` / `Ink.image`. |
-| `button_pressed.png` | `uiButtonPressed` | `GestureDetector` + state ile basılı görünüm. |
-| `icon_menu.png` | `uiIconMenu` | Drawer / menü FAB. |
-| `icon_back.png` | `uiIconBack` | Geri ok (iç ekranlar). |
+**Not:** `health.png` ve `energy.png` aynı klasörde UI için kullanılıyor; üretim promptları bu listede yoksa OpenClaw tutarlı stilde tamamlayabilir.
 
-**Kritik:** Yeni PNG eklerken mutlaka `pubspec.yaml` → `flutter: assets:` listesine **dosya veya klasör** ekle. Aksi halde runtime’da “Unable to load asset” ve testler kırılır.
+### 2.2 Bina ikonları (256×256)
 
-**Performans:** `1.x` / `2.x` dosyaları çok büyükse (ör. 8 MB) release öncesi sıkıştırma veya çözünürlük düşürme önerilir; Git için isteğe bağlı [Git LFS](https://git-lfs.com).
+| Dosya | Prompt |
+|--------|--------|
+| `assets/images/buildings/mine.png` | Sci-fi mining building icon, industrial design, drills and conveyors, blue metallic, top-down view, 256x256 |
+| `assets/images/buildings/refinery.png` | Futuristic refinery icon, pipes and tanks, purple energy glow, industrial sci-fi, 256x256 |
+| `assets/images/buildings/command_center.png` | Space command center icon, antenna and radar dishes, military sci-fi, blue and white, 256x256 |
+
+**Not:** `research_lab.png`, `shipyard.png` bu tabloda yok; aynı görsel dilde üretilip eklenebilir.
+
+### 2.3 Gezegen (1024×1024)
+
+| Dosya | Prompt |
+|--------|--------|
+| `assets/images/planets/alpha.png` | Alien planet with blue oceans and green continents, sci-fi style, from space view, detailed atmosphere, 1024x1024 |
+
+**Not:** `beta.png`, `gamma.png`, `sectors/*` aynı estetikle genişletilebilir.
+
+### 2.4 Tam ekran sekme arka planları (`assets/images/` kökü)
+
+Bu dosyalar (`1.1.png` … `1.3.png`, `2.1.png` … `2.3.png`, `3.png`) **yukarıdaki Nano Banana 2 listesinde ayrı prompt satırı olarak tanımlanmadı**; isimler **üretim / sıra / sekme eşlemesi** için kullanılıyor. Kodda `AssetPaths.heroHubPrimary` vb. bu yolları işaret eder.
+
+| Dosya | `AssetPaths` | Kodda kullanım |
+|--------|----------------|-----------------|
+| `1.1.png` | `heroHubPrimary` | Üs sekmesi tam ekran arka plan |
+| `1.2.png` | `heroHubVariantA` | İsteğe bağlı ek üs görseli |
+| `1.3.png` | `heroHubVariantB` | İsteğe bağlı ek üs görseli |
+| `2.1.png` | `heroInventory` | Envanter sekmesi |
+| `2.2.png` | `heroExploration` | Keşif sekmesi |
+| `2.3.png` | `heroCombat` | Savaş sekmesi |
+| `3.png` | `heroMeta` | Ayarlar / meta ekran |
+
+İstenirse dosyalar **anlamlı ada** (ör. `hub_background.png`) yeniden adlandırılabilir; o zaman `pubspec.yaml` ve `AssetPaths` birlikte güncellenmelidir.
+
+### 2.5 `assets/images/ui/`
+
+Küçük UI parçaları (`button_normal.png`, `button_pressed.png`, `icon_menu.png`, `icon_back.png`). Prompt listesi bu dört dosya için ayrıca tanımlanmadıysa OpenClaw oyun stiline uygun kısa promptlar yazabilir.
+
+**Kritik:** Yeni PNG eklerken `pubspec.yaml` → `flutter: assets:` güncellenmeli.
 
 ---
 
 ## 3. UI ve oynanış (mevcut sürüm)
 
-- **Material 3** açıldı; kartlarda cam benzeri panel (`_GlassCard`), tam ekran **scenic** arka plan (`ScenicBackground`).
-- **AppBar**: “Nasıl oynanır?” → `showGameplayGuide` ile Türkçe kısa rehber.
-- **Yükselt** düğmeleri: `GameConstants.buildingCosts` ile **kaynak kontrolü**; yetersizse SnackBar; yeterliyse kaynak düşer + demo SnackBar (sunucu / kuyruk yok).
-- **Hızlandır**: SnackBar ile “yakında” mesajı.
-- Alt navigasyon sekmeleri **çalışıyor**; Envanter / Keşif / Savaş / Ayarlar içerikleri taslak + ilgili hero görseli.
-
-OpenClaw’ın bir sonraki adımları için öneri: Firestore `UserModel` / `BaseModel` bağlama, gerçek yükseltme zamanlayıcısı, `google_mobile_ads` yalnızca `MobileAds.instance.initialize()` hazır olduğunda, keşif için `google_generative_ai` API anahtarı güvenli saklama.
+- **Material 3**; kartlarda cam benzeri panel, tam ekran arka plan (`ScenicBackground`).
+- **AppBar**: “Nasıl oynanır?” → Türkçe kısa rehber.
+- **Yükselt** / **Hızlandır**: demo davranış + SnackBar (sunucu kuyruğu yok).
+- Alt sekmeler çalışır; Envanter / Keşif / Savaş / Ayarlar taslak + ilgili hero görseli.
 
 ---
 
@@ -88,20 +128,17 @@ cd ios && pod install && cd ..
 
 ---
 
-## 5. GitHub’a push
+## 5. GitHub
 
-Bu proje için oluşturulan uzak depo (örnek): **https://github.com/ahmetulukan/galaktik-sinir**  
-(`neo-cosmos` adı hesapta zaten kullanıldığı için `galaktik-sinir` seçildi.)
-
-Yeni clone sonrası:
+Kanonical depo: **[https://github.com/ahmetulukan/neo-cosmos](https://github.com/ahmetulukan/neo-cosmos)**
 
 ```bash
-git clone https://github.com/ahmetulukan/galaktik-sinir.git
-cd galaktik-sinir
+git clone https://github.com/ahmetulukan/neo-cosmos.git
+cd neo-cosmos
 flutter pub get
 cd ios && pod install && cd ..
 ```
 
 ---
 
-*Son güncelleme: proje içi düzeltmeler ve OpenClaw devretme notları bu dosyada toplanmıştır.*
+*Son güncelleme: Neo Cosmos markası, resmi asset promptları ve OpenClaw eşzamanlılık notları.*

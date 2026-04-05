@@ -93,7 +93,7 @@ class AssetPaths {
   static const String sectorAsteroid = 'assets/images/sectors/asteroid.png';
   static const String sectorDerelict = 'assets/images/sectors/derelict.png';
 
-  /// Gemini üretimi tam ekran / atmosfer görselleri (`docs/OPENCLAW_HANDOFF.md`).
+  /// Tam ekran sekme arka planları; üretim özeti `docs/OPENCLAW_HANDOFF.md`.
   static const String heroHubPrimary = 'assets/images/1.1.png';
   static const String heroHubVariantA = 'assets/images/1.2.png';
   static const String heroHubVariantB = 'assets/images/1.3.png';

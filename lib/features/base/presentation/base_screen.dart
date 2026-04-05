@@ -75,7 +75,7 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
       extendBody: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Galaktik Sınır'),
+        title: const Text('Neo Cosmos'),
         backgroundColor: Colors.black.withValues(alpha: 0.35),
         surfaceTintColor: Colors.transparent,
         actions: [

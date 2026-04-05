@@ -2,7 +2,9 @@
 
 **Neo Cosmos**, OGame mekaniklerinden esinlenen ancak benzersiz özellikler ekleyen bir uzay temalı mobil oyundur. Oyun, kaynak yönetimi, bina geliştirme ve Gemini 3 Flash destekli yapay zeka keşif sistemlerini birleştirir.
 
-Geliştirici el kitabı (düzeltmeler, iOS/Android tuzakları, Gemini asset eşlemesi): [docs/OPENCLAW_HANDOFF.md](docs/OPENCLAW_HANDOFF.md).
+- El kitabı (düzeltmeler, iOS/Android, görsel spesifikasyonu): [docs/OPENCLAW_HANDOFF.md](docs/OPENCLAW_HANDOFF.md)  
+- OpenClaw teslim / ekip notları şablonu: [docs/OPENCLAW_STATUS.md](docs/OPENCLAW_STATUS.md)  
+- Depo: [github.com/ahmetulukan/neo-cosmos](https://github.com/ahmetulukan/neo-cosmos)
 
 ## 🎮 Özellikler
 

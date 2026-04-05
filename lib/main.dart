@@ -21,16 +21,16 @@ Future<void> main() async {
   // Register adapters
   // await Hive.openBox('game_cache');
   
-  runApp(const ProviderScope(child: GalaktikSinirApp()));
+  runApp(const ProviderScope(child: NeoCosmosApp()));
 }
 
-class GalaktikSinirApp extends StatelessWidget {
-  const GalaktikSinirApp({super.key});
+class NeoCosmosApp extends StatelessWidget {
+  const NeoCosmosApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Galaktik Sınır',
+      title: 'Neo Cosmos',
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       home: const BaseScreen(),

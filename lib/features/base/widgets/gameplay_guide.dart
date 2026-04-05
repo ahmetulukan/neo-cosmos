@@ -7,7 +7,7 @@ void showGameplayGuide(BuildContext context) {
       title: const Text('Nasıl oynanır?'),
       content: SingleChildScrollView(
         child: Text(
-          'Galaktik Sınır, üs kurma (kaynak, bina) ve ileride keşif / savaş / envanter '
+          'Neo Cosmos, üs kurma (kaynak, bina) ve ileride keşif / savaş / envanter '
           'ekranlarından oluşan bir hibrit oyundur.\n\n'
           '• Üs: Titan, Quantum Yakıt ve Kredi üretir veya harcarsın. Binaları yükselterek '
           'üretimi artırırsın.\n\n'
