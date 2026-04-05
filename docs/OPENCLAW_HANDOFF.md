@@ -90,15 +90,17 @@ cd ios && pod install && cd ..
 
 ## 5. GitHub’a push
 
-Depo kökünde `git init` yapıldıysa:
+Bu proje için oluşturulan uzak depo (örnek): **https://github.com/ahmetulukan/galaktik-sinir**  
+(`neo-cosmos` adı hesapta zaten kullanıldığı için `galaktik-sinir` seçildi.)
+
+Yeni clone sonrası:
 
 ```bash
-git branch -M main
-git remote add origin https://github.com/KULLANICI/neo-cosmos.git
-git push -u origin main
+git clone https://github.com/ahmetulukan/galaktik-sinir.git
+cd galaktik-sinir
+flutter pub get
+cd ios && pod install && cd ..
 ```
-
-GitHub’da repo yoksa önce boş repo oluştur veya `gh repo create` kullan.
 
 ---
 
