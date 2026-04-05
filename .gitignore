@@ -1,0 +1,67 @@
+# Flutter
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android
+android/.gradle
+android/.idea
+android/gradle-wrapper.jar
+android/local.properties
+android/**/build/
+android/**/local.properties
+android/**/.gradle
+android/**/gradle-wrapper.jar
+android/key.properties
+*.jks
+
+# iOS
+ios/.generated/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/**/GeneratedPluginRegistrant.*
+ios/Pods/
+ios/.symlinks/
+
+# Web
+web/
+
+# Desktop
+linux/flutter/ephemeral/
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/build/
+
+# Firebase — gerçek prod anahtarları için yerel override kullanın; repoda placeholder dosyalar var.
+# google-services.json
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.temp
+
+# Config files with secrets
+.env
+.env.local
+.env.*.local
+
+# Hive
+*.hive
+*.lock

@@ -1,0 +1,52 @@
+name: neo_cosmos
+description: OGame + AI RPG hybrid mobile game
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.4.9
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.9.0
+  firebase_core: ^2.28.0
+  firebase_auth: ^4.18.2
+  cloud_firestore: ^4.17.2
+  google_mobile_ads: ^3.0.0
+  google_generative_ai: ^0.2.2
+  intl: ^0.19.0
+  uuid: ^4.4.0
+  http: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.7
+  freezed: ^2.4.5
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/planets/
+    - assets/images/buildings/
+    - assets/images/resources/
+    - assets/images/sectors/
+    - assets/images/ui/
+    - assets/images/1.1.png
+    - assets/images/1.2.png
+    - assets/images/1.3.png
+    - assets/images/2.1.png
+    - assets/images/2.2.png
+    - assets/images/2.3.png
+    - assets/images/3.png
+  
+  # For iOS and Android splash screens
+  # flutter_native_splash:
+  #   color: "#0A0E21"
+  #   image: assets/images/splash.png
