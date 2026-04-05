@@ -51,53 +51,63 @@ Bu dosya **Neo Cosmos** (`neo_cosmos`) projesinde yapılan hata giderme ve yapı
 
 ---
 
-## 2. Görsel üretim — Nano Banana 2 (resmi prompt listesi)
+## 2. Görsel üretim — Nano Banana 2 (prompt ↔ dosya eşlemesi)
 
-Aşağıdaki yollar ve promptlar **tasarım kaynağıdır**; dosya adları rastgele değil, bu spesifikasyona göre kullanılmalıdır. Kodda `AssetPaths` bu yolları referans alır.
+Aşağıda **spesifikasyon numarası** (1.1, 1.2, …) ile **gerçek asset yolu** ve **prompt** tek satırda eşlenir. Üretilen PNG’yi yalnızca ilgili yola kaydet.
 
-### 2.1 Kaynak ikonları (512×512, şeffaf arka plan)
+**Dikkat — ad çakışması:** Proje kökünde ayrıca `assets/images/1.1.png`, `assets/images/2.1.png` gibi dosyalar vardır; bunlar **tam ekran sekme arka planlarıdır** ve **aşağıdaki 1.1 / 2.1 spesifikasyonlarıyla aynı şey değildir**. Spes 1.1 = `resources/titanium.png`; kök `1.1.png` = üs sekmesi arka planı (prompt bu belgede ayrı tanımlanmadı). Karışmaması için üretimde her zaman **tam klasör yoluna** bak.
 
-| Dosya | Prompt |
-|--------|--------|
-| `assets/images/resources/titanium.png` | Futuristic titanium ore icon, metallic blue and silver, glowing edges, game asset style, 512x512, transparent background |
-| `assets/images/resources/quantum_fuel.png` | Quantum fuel canister icon, purple and green energy glow, sci-fi style, transparent background, 512x512 |
-| `assets/images/resources/credit.png` | Premium currency credit icon, golden coin with circuit pattern, holographic effect, 512x512, transparent background |
+### Grup 1 — Kaynak ikonları (512×512, şeffaf arka plan)
 
-**Not:** `health.png` ve `energy.png` aynı klasörde UI için kullanılıyor; üretim promptları bu listede yoksa OpenClaw tutarlı stilde tamamlayabilir.
+| No | Çıktı dosyası (tam yol) | Prompt |
+|----|-------------------------|--------|
+| **1.1** | `assets/images/resources/titanium.png` | Futuristic titanium ore icon, metallic blue and silver, glowing edges, game asset style, 512x512, transparent background |
+| **1.2** | `assets/images/resources/quantum_fuel.png` | Quantum fuel canister icon, purple and green energy glow, sci-fi style, transparent background, 512x512 |
+| **1.3** | `assets/images/resources/credit.png` | Premium currency credit icon, golden coin with circuit pattern, holographic effect, 512x512, transparent background |
 
-### 2.2 Bina ikonları (256×256)
+Kod: `AssetPaths.titaniumIcon`, `quantumFuelIcon`, `creditIcon`.
 
-| Dosya | Prompt |
-|--------|--------|
-| `assets/images/buildings/mine.png` | Sci-fi mining building icon, industrial design, drills and conveyors, blue metallic, top-down view, 256x256 |
-| `assets/images/buildings/refinery.png` | Futuristic refinery icon, pipes and tanks, purple energy glow, industrial sci-fi, 256x256 |
-| `assets/images/buildings/command_center.png` | Space command center icon, antenna and radar dishes, military sci-fi, blue and white, 256x256 |
+**Ek (bu listede prompt yok):** `health.png`, `energy.png` — aynı stilde tamamlanabilir.
 
-**Not:** `research_lab.png`, `shipyard.png` bu tabloda yok; aynı görsel dilde üretilip eklenebilir.
+### Grup 2 — Bina ikonları (256×256)
 
-### 2.3 Gezegen (1024×1024)
+| No | Çıktı dosyası (tam yol) | Prompt |
+|----|-------------------------|--------|
+| **2.1** | `assets/images/buildings/mine.png` | Sci-fi mining building icon, industrial design, drills and conveyors, blue metallic, top-down view, 256x256 |
+| **2.2** | `assets/images/buildings/refinery.png` | Futuristic refinery icon, pipes and tanks, purple energy glow, industrial sci-fi, 256x256 |
+| **2.3** | `assets/images/buildings/command_center.png` | Space command center icon, antenna and radar dishes, military sci-fi, blue and white, 256x256 |
 
-| Dosya | Prompt |
-|--------|--------|
-| `assets/images/planets/alpha.png` | Alien planet with blue oceans and green continents, sci-fi style, from space view, detailed atmosphere, 1024x1024 |
+Kod: `AssetPaths.mineIcon`, `refineryIcon`, `commandCenterIcon`.
 
-**Not:** `beta.png`, `gamma.png`, `sectors/*` aynı estetikle genişletilebilir.
+**Ek (bu listede prompt yok):** `research_lab.png`, `shipyard.png` — aynı görsel dilde üretilebilir.
 
-### 2.4 Tam ekran sekme arka planları (`assets/images/` kökü)
+### Grup 3 — Gezegen (1024×1024)
 
-Bu dosyalar (`1.1.png` … `1.3.png`, `2.1.png` … `2.3.png`, `3.png`) **yukarıdaki Nano Banana 2 listesinde ayrı prompt satırı olarak tanımlanmadı**; isimler **üretim / sıra / sekme eşlemesi** için kullanılıyor. Kodda `AssetPaths.heroHubPrimary` vb. bu yolları işaret eder.
+| No | Çıktı dosyası (tam yol) | Prompt |
+|----|-------------------------|--------|
+| **3** | `assets/images/planets/alpha.png` | Alien planet with blue oceans and green continents, sci-fi style, from space view, detailed atmosphere, 1024x1024 |
 
-| Dosya | `AssetPaths` | Kodda kullanım |
-|--------|----------------|-----------------|
-| `1.1.png` | `heroHubPrimary` | Üs sekmesi tam ekran arka plan |
-| `1.2.png` | `heroHubVariantA` | İsteğe bağlı ek üs görseli |
-| `1.3.png` | `heroHubVariantB` | İsteğe bağlı ek üs görseli |
-| `2.1.png` | `heroInventory` | Envanter sekmesi |
-| `2.2.png` | `heroExploration` | Keşif sekmesi |
-| `2.3.png` | `heroCombat` | Savaş sekmesi |
-| `3.png` | `heroMeta` | Ayarlar / meta ekran |
+Kod: `AssetPaths.planetAlpha`.
 
-İstenirse dosyalar **anlamlı ada** (ör. `hub_background.png`) yeniden adlandırılabilir; o zaman `pubspec.yaml` ve `AssetPaths` birlikte güncellenmelidir.
+**Ek:** `beta.png`, `gamma.png`, `sectors/*` — aynı estetikle genişletilebilir.
+
+### Tam ekran sekme arka planları — `assets/images/` kök dosya adları
+
+Bu satırlar **yukarıdaki Grup 1–3 numaralarıyla ilgili değildir** (yalnızca dosya adı benzerliği).
+
+| Kök dosya | `AssetPaths` | Kodda kullanım |
+|-----------|----------------|-----------------|
+| `assets/images/1.1.png` | `heroHubPrimary` | Üs sekmesi tam ekran arka plan |
+| `assets/images/1.2.png` | `heroHubVariantA` | İsteğe bağlı ek üs görseli |
+| `assets/images/1.3.png` | `heroHubVariantB` | İsteğe bağlı ek üs görseli |
+| `assets/images/2.1.png` | `heroInventory` | Envanter sekmesi |
+| `assets/images/2.2.png` | `heroExploration` | Keşif sekmesi |
+| `assets/images/2.3.png` | `heroCombat` | Savaş sekmesi |
+| `assets/images/3.png` | `heroMeta` | Ayarlar / meta ekran |
+
+Bu kök PNG’ler için Nano Banana promptları ayrıca yazılabilir; üretince dosya adını ve `pubspec.yaml` + `AssetPaths` tutarlı tut.
+
+İstenirse kök dosyalar **anlamlı ada** (ör. `hub_background.png`) yeniden adlandırılabilir; o zaman `pubspec.yaml` ve `AssetPaths` birlikte güncellenmelidir.
 
 ### 2.5 `assets/images/ui/`
 
