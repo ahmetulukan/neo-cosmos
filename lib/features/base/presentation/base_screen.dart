@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/services/resource_service.dart';
 import '../widgets/resource_display.dart';
 import '../widgets/building_card.dart';
 import '../widgets/navigation_bar.dart';
@@ -30,6 +31,15 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
   void initState() {
     super.initState();
     _initializeAuth();
+    _initializeResources();
+  }
+
+  @override
+  void dispose() {
+    // Clean up resource timer
+    final resourceService = ref.read(resourceServiceProvider);
+    resourceService.dispose();
+    super.dispose();
   }
 
   Future<void> _initializeAuth() async {
@@ -58,6 +68,12 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
     } else {
       print('✅ User already signed in: ${authService.userId}');
     }
+  }
+
+  void _initializeResources() {
+    final resourceService = ref.read(resourceServiceProvider);
+    resourceService.initializeResourceProduction();
+    print('✅ Resource production system started');
   }
 
   String _heroForTab(int index) {
@@ -130,13 +146,7 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
           Column(
             children: [
               _HudPanel(
-                child: ResourceDisplay(
-                  titanium: _titanium,
-                  quantumFuel: _quantumFuel,
-                  credits: _credits,
-                  health: _health,
-                  energy: _energy,
-                ),
+                child: const ResourceDisplay(),
               ),
               Expanded(child: _buildTabBody()),
             ],
