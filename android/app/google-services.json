@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906825850331",
+    "project_id": "neocosmos-xxxxx",
+    "storage_bucket": "neocosmos-xxxxx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906825850331:android:0f57352fef701493731bfe",
+        "android_client_info": {
+          "package_name": "com.neocosmos.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906825850331-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp2rT4zJ8Xe9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906825850331-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/services/auth_service.dart';
 import '../widgets/resource_display.dart';
 import '../widgets/building_card.dart';
 import '../widgets/navigation_bar.dart';
@@ -24,6 +25,40 @@ class _BaseScreenState extends ConsumerState<BaseScreen> {
   final int _credits = GameConstants.initialCredits;
   final int _health = GameConstants.initialHealth;
   final int _energy = 75;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeAuth();
+  }
+
+  Future<void> _initializeAuth() async {
+    final authService = ref.read(authServiceProvider);
+    
+    // Check if user is already signed in
+    if (!authService.isSignedIn) {
+      // Sign in anonymously
+      final user = await authService.signInAnonymously();
+      if (user != null) {
+        print('✅ User signed in anonymously: ${user.uid}');
+        
+        // Initialize user data
+        await authService.initializeUserData(user.uid);
+        
+        // Show welcome message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Hoş geldin, Uzay Kaşifi #${user.uid.substring(0, 6)}!'),
+              duration: const Duration(seconds: 3),
+            ),
+          );
+        }
+      }
+    } else {
+      print('✅ User already signed in: ${authService.userId}');
+    }
+  }
 
   String _heroForTab(int index) {
     switch (index) {

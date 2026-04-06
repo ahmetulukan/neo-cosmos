@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'core/theme/app_theme.dart';
 import 'features/base/presentation/base_screen.dart';
 import 'firebase_options.dart';
+import 'models/user_model.dart'; // For Hive adapter
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +19,14 @@ Future<void> main() async {
   // Initialize Hive
   await Hive.initFlutter();
   
-  // Register adapters
-  // await Hive.openBox('game_cache');
+  // Register Hive adapters
+  Hive.registerAdapter(UserModelAdapter());
+  
+  // Open user data box
+  await Hive.openBox<UserModel>('user_data');
+  
+  // Open game cache box
+  await Hive.openBox('game_cache');
   
   runApp(const ProviderScope(child: NeoCosmosApp()));
 }
