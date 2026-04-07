@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/countdown_timer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/constants.dart';
@@ -287,7 +288,12 @@ class BaseOverviewScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Text(
+                    const SizedBox(height: 20),
+          
+          // Gün 4: Gerçek zamanlı yükseltme sayacı
+          CountdownTimer(),
+          
+          const SizedBox(height: 20),Text(
             'Binalar',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
